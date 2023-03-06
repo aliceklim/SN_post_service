@@ -1,11 +1,9 @@
 package com.example.demo.services;
 
-import com.example.demo.exception.CommentException;
 import com.example.demo.feign.CommentRequest;
 import com.example.demo.feign.PersonService;
 import com.example.demo.mappers.CommentMapper;
 import com.example.demo.model.Comment;
-import com.example.demo.model.CommentDTO;
 import com.example.demo.repositories.CommentRepository;
 import dto.userDto.PersonDTO;
 import lombok.RequiredArgsConstructor;

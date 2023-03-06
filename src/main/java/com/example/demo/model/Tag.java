@@ -3,6 +3,7 @@ package com.example.demo.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,6 +18,10 @@ public class Tag {
     @SequenceGenerator(name = "tag_id_gen", sequenceName = "tag_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
+
     private String tag;
+
+    @ManyToMany(mappedBy = "tags")
+    private Set<Post> posts;
 }
 

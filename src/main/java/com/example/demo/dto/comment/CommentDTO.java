@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.dto.comment;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -6,8 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @Builder
@@ -17,13 +16,14 @@ import java.time.LocalDateTime;
 public class CommentDTO {
     private Long id;
     private Long postId;
-    private LocalDateTime time;
-    private LocalDateTime editTime;
+    private ZonedDateTime time;
+    private ZonedDateTime editTime;
     private Long authorId;
     private String text;
     private boolean isBlocked;
     private boolean isDelete;
     private Long likeAmount;
     private boolean myLike;
-    private Long commentsCount;
+    private String imagepath;
 }
+

@@ -1,8 +1,13 @@
 package com.example.demo.model;
 
+import com.example.demo.constants.PostType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,10 +22,46 @@ public class Post {
     @SequenceGenerator(name = "post_id_gen", sequenceName = "post_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
-    private LocalDateTime time;
+
+    private ZonedDateTime time;
+
+    private ZonedDateTime publishTime;
+
     private Long authorId;
+
     private String title;
+
     private String postText;
-    private Boolean isBlocked;
+
+    @Enumerated(EnumType.STRING)
+    private PostType type;
+
+    @Builder.Default
+    private Boolean isBlocked = false;
+
+    @Builder.Default
+    private Boolean withFriends = false;
+
+    @Builder.Default
+    private Boolean isDelete = false;
+
+    @Builder.Default
+    private Boolean myLike = false;
+
+
+    @Builder.Default
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "jt_post_tag",
+            joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+    private Set<Tag> tags = new HashSet<>();
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    private Set<Comment> comments;
+
+
+    @ManyToMany(mappedBy = "posts")
+    private Set<PostLike> postLikes = new HashSet<>();
+
 }
 
